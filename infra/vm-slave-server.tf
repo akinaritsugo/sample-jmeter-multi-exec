@@ -8,6 +8,7 @@ resource "azurerm_linux_virtual_machine" "centos7" {
   admin_username                  = var.username
   admin_password                  = var.password
   disable_password_authentication = false
+  custom_data                     = filebase64("${path.module}/vm-slave-server-cloud-init.sh")
 
   os_disk {
     name                 = "${var.prj}-${var.env}-${var.slavename}-${format("%02d", count.index + 1)}-vm-os-disk"
@@ -18,7 +19,7 @@ resource "azurerm_linux_virtual_machine" "centos7" {
   source_image_reference {
     publisher = "OpenLogic"
     offer     = "CentOS"
-    sku       = "7.5"
+    sku       = "7_9-gen2"
     version   = "latest"
   }
 
@@ -30,11 +31,6 @@ resource "azurerm_linux_virtual_machine" "centos7" {
     project     = var.prj
     environment = var.env
   }
-}
-
-# # Read cloud-init file.
-data "template_file" "cloudinit" {
-  template = file("${path.module}/vm-slave-server-cloud-init.sh")
 }
 
 # NIC設定
