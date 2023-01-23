@@ -4,7 +4,7 @@ resource "azurerm_linux_virtual_machine" "centos7" {
   computer_name                   = var.slavename
   resource_group_name             = azurerm_resource_group.rg.name
   location                        = azurerm_resource_group.rg.location
-  size                            = "Standard_B2s"
+  size                            = "Standard_B1ms" # Standard_B1s, Standard_B1ms, Standard_B2s, Standard_B2ms, 
   admin_username                  = var.username
   admin_password                  = var.password
   disable_password_authentication = false
