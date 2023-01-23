@@ -15,7 +15,9 @@ $java_home = $env:ProgramFiles + "\Java\jdk-19"
 cd $env:tmp
 wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.zip -OutFile apache-jmeter-5.5.zip
 Expand-Archive -Path apache-jmeter-5.5.zip -DestinationPath .\
-Move-Item .\apache-jmeter-5.5 $env:USERPROFILE\bin\jmeter -Force
+New-Item $env:USERPROFILE\bin\jmeter -Type Directory -Force
+Move-Item .\apache-jmeter-5.5\* $env:USERPROFILE\bin\jmeter -Force
+Remove-Item .\apache-jmeter-5.5
 
 # Create shortcut to the Desktop
 $WsShell = New-Object -ComObject WScript.Shell
@@ -35,6 +37,9 @@ $encoding="UTF8"
 # DO NOT FORGET
 # You need to add remote host address into the "remote_hosts" parameter.
 # ex) remote_hosts=172.16.1.4,172.16.1.5,172.16.1.6
+
+# Disable firewall
+Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
 # -------------------------------------
 # Teraterm
