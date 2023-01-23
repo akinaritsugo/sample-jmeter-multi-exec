@@ -38,7 +38,7 @@ resource "azurerm_network_interface" "win2019" {
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.master.id
+    subnet_id                     = azurerm_subnet.main.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.win2019.id
   }
